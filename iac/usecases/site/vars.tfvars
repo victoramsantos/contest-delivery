@@ -1,0 +1,1 @@
+bucket_name="deliverycontest-victor.com"
