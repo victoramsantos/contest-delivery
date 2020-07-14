@@ -28,3 +28,22 @@ variable "db_subnet_group_name" {
 variable "all_traffic_sg_name" {
   default = "all-traffic-sg"
 }
+
+variable authorizer_name {
+  default = "authorizationToken"
+}
+variable lambda_handler {
+  default = "lambda_function.lambda_handler"
+}
+
+variable lambda_name {
+  default = "order_calculate"
+}
+
+variable lambda_runtime {
+  default = "python3.8"
+}
+
+variable lambda_zip_path {
+  default = "lambda/lambda.zip"
+}

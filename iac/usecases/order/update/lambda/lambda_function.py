@@ -36,7 +36,7 @@ def update_product(product, conn):
         cur.execute(query)
 
 def lambda_handler(event, context):
-    body = json.loads(event["body"])
+    body = event
     conn = db_connection(hostname, username, password, database)
 
     product = body["product"]

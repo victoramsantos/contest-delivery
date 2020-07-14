@@ -28,8 +28,8 @@ def db_connection(hostname, username, password, database):
 
 def filter_products(order, conn):
     products = []
-    ids = [product["id"] for product in order]
-    query = f"select * from products where id in {tuple(ids)}"
+    ids = [str(product["id"]) for product in order]
+    query = f"select * from products where id in {tuple(ids) if len(ids) > 1 else '(' + ids[0] + ')'}"
     with conn.cursor() as cur:
         cur.execute(query)
         for elem in cur:
@@ -39,27 +39,38 @@ def filter_products(order, conn):
 
 def calculate_order(order, products):
     total = 0
-    for product in products:
-        for item in order:
+    print(order)
+    print(products)
+    bill = []
+
+    for item in order:
+        for product in products:
             if product[0] == item["id"]:
                 total += product[2] * item["amount"]
+                bill.append({
+                    "name": product[1],
+                    "cost": product[2] * item["amount"],
+                    "amount": item["amount"]
+                })
+                continue
 
-    return total
+    return {
+        "bill": bill,
+        "total": total
+    }
+
 
 def lambda_handler(event, context):
-    body = json.loads(event["body"])
+    body = event
     conn = db_connection(hostname, username, password, database)
 
     order = body["order"]
     products = filter_products(order, conn)
-    total = calculate_order(order, products)
+    response = calculate_order(order, products)
 
     return {
         'statusCode': 200,
-        'body': json.dumps({
-            "products": products,
-            "total": total
-        })
+        'body': json.dumps(response)
     }
 
 

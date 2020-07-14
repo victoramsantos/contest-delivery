@@ -39,7 +39,7 @@ def list_products(conn):
 def lambda_handler(event, context):
     conn = db_connection(hostname, username, password, database)
 
-    products = list_products(order, conn)
+    products = list_products(conn)
 
     return {
         'statusCode': 200,

@@ -2,8 +2,137 @@
 <head>
     <title>Index Site</title>
     <link rel='stylesheet' href='https://d1e7x7ujv42v3e.cloudfront.net/style.css'/>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
 <body>
     <h1 class="success">Site</h1>
+
+    <div>
+        <div id="productList">
+            <h2>Product List:</h2>
+            <table id="productsTable" border='1'>
+                <tr><th>Id</th><th>Name</th><th>Price</th><th>Cart</th></tr>
+            </table>
+        </div>
+
+        <div id="cartList">
+            <h2>Cart</h2>
+            <table id="cartTable" border='1'>
+
+            </table>
+            <h3 id="cartTotal"></h3>
+            <button id="notifyCarrier">Notify Carrier</button>
+        </div>
+    </div>
 </body>
+<script>
+    let gateway = "https://m5inkgyasf.execute-api.us-east-1.amazonaws.com/developer";
+    let cart = new Map();
+
+    $(window).on('load', function() {
+        $.ajax({
+            url: gateway + "/listProduct",
+            type: "POST",
+            crossDomain: true,
+            headers: {
+                'Content-Type':'application/json'
+            },
+            success: function (jsonResponse) {
+                let response = JSON.parse(jsonResponse.body);
+                let product, trHTML = '';
+
+                for(product of response["products"]){
+                    trHTML += '<tr><td>' + product[0] + '</td><td>' + product[1] + '</td><td>' + product[2] + '</td><td><button class="addToCart" productId="'+product[0]+'">add</button><button class="removeFromCart" productId="'+product[0]+'">del</button></td></tr>';
+                }
+                $('#productsTable').append(trHTML);
+            }
+        });
+    });
+
+    $(function(){
+        $(document).on('click', '.addToCart', function (event) {
+            let productId = $(event.target).attr("productId");
+            if (!cart.has(productId)) {
+                cart.set(productId, 0);
+            }
+            cart.set(productId, cart.get(productId) + 1);
+            updateCart();
+        });
+        $(document).on('click', '.removeFromCart', function (event) {
+            let productId = $(event.target).attr("productId");
+            if (cart.has(productId) && cart.get(productId) >= 0) {
+                cart.set(productId, cart.get(productId) - 1);
+                if(cart.get(productId) === 0) {
+                    cart.delete(productId)
+                    return;
+                }
+                updateCart();
+            }
+
+        });
+    });
+
+    function updateCart(){
+        let orders = []
+
+        cart.forEach(function (value, key) {
+            orders.push({
+                "id": parseInt(key),
+                "amount": value
+            })
+        });
+        let payload = JSON.stringify({
+            "order": orders
+        })
+        console.log(payload)
+        $.ajax({
+            url: gateway + "/calculateOrder",
+            type: "POST",
+            crossDomain: true,
+            headers: {
+                'Content-Type':'application/json'
+            },
+            data: payload,
+            dataType: 'json',
+            success: function (jsonResponse) {
+                let response = JSON.parse(jsonResponse.body);
+                let trHTML = '';
+
+                console.log(response);
+
+                for(item of response["bill"]){
+                    trHTML += '<tr><td>' + item["name"] + '</td><td>' + item["amount"] + '</td><td>' + item["cost"] + '</td></tr>';
+                }
+
+                $('#cartTable').empty().append("<tr><th>Name</th><th>Amount</th><th>Cost</th></tr>");
+                $('#cartTable').append(trHTML);
+
+                $('#cartTotal').empty().append("Cart total: "+response['total']);
+            }
+        });
+    }
+
+    $("#notifyCarrier").click(function () {
+        if(confirm("We will notify all carriers in your region. Are you sure?")){
+            console.log("Sending notification")
+            let payload = JSON.stringify({
+                "message": "You have a new order. Click here to accpet."
+            })
+            $.ajax({
+                url: gateway + "/notifyCarrier",
+                type: "POST",
+                crossDomain: true,
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                data: payload,
+                dataType: 'json',
+                success: function (jsonResponse) {
+                    console.log(jsonResponse);
+                }
+            });
+        }
+    });
+
+</script>
 </html>

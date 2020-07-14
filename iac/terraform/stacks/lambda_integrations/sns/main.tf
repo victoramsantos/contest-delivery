@@ -21,9 +21,8 @@ module "lambda_function" {
     SNS_ARN = module.sns_with_sms_subscription.sns_arn
   }
 }
-
 module "api_integration" {
-  source = "../../../modules/api_gateway/integration/lambda"
+  source = "../../../modules/api_gateway/integration/cors_mock"
 
   account_id = var.account_id
   border_gateway_name = var.border_gateway_name

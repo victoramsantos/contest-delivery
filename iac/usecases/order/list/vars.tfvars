@@ -1,6 +1,6 @@
 #api_lambda_integraion
 account_id = "965813040839"
-http_method = "GET"
+http_method = "POST"
 lambda_handler = "lambda_function.lambda_handler"
 lambda_name = "product_list"
 lambda_runtime = "python3.8"

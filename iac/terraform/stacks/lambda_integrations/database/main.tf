@@ -27,7 +27,7 @@ module "lambda_function_with_database" {
 }
 
 module "api_integration" {
-  source = "../../../modules/api_gateway/integration/lambda"
+  source = "../../../modules/api_gateway/integration/cors_mock"
 
   account_id = var.account_id
   border_gateway_name = var.border_gateway_name

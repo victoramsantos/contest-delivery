@@ -6,11 +6,8 @@ import os
 def lambda_handler(event, context):
     client = boto3.client('sns')
     sns_arn = os.getenv("SNS_ARN")
-    body = json.loads(event["body"])
 
-
-    message = body["message"]
-
+    message = event["message"]
 
     response = client.publish(
         TargetArn=sns_arn,

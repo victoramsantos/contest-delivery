@@ -8,6 +8,17 @@ module "border_api_gateway" {
   api_gtw_name = var.api_gtw_name
 }
 
+module api_gateway_authorizer {
+  source = "../../modules/api_gateway/authorizer"
+
+  authorizer_name = var.authorizer_name
+  border_gateway_name = var.api_gtw_name
+  lambda_handler = var.lambda_handler
+  lambda_name = var.lambda_handle
+  lambda_runtime = "python3.8"
+  lambda_zip_path = "lambda.zip"
+}
+
 module "mysql_security_group" {
   source = "../../modules/security_group/database"
 
