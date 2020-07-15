@@ -21,6 +21,7 @@ module "lambda_function" {
     SNS_ARN = module.sns_with_sms_subscription.sns_arn
   }
 }
+
 module "api_integration" {
   source = "../../../modules/api_gateway/integration/cors_mock"
 
@@ -32,6 +33,7 @@ module "api_integration" {
   region = var.region
   resource = var.resource
   stage_name = var.stage_name
+  lambda_authorization_name = var.lambda_authorization_name
 }
 
 module "sns_publish" {

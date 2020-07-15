@@ -32,18 +32,30 @@ variable "all_traffic_sg_name" {
 variable authorizer_name {
   default = "authorizationToken"
 }
+
 variable lambda_handler {
-  default = "lambda_function.lambda_handler"
+  default = "index.handler"
 }
 
 variable lambda_name {
-  default = "order_calculate"
+  default = "authenticator"
 }
 
 variable lambda_runtime {
-  default = "python3.8"
+  default = "nodejs12.x"
 }
 
 variable lambda_zip_path {
   default = "lambda/lambda.zip"
+}
+
+variable "key_name" {
+  default = "nova-pem"
+}
+
+variable "jumpbox_prefix" {
+  default = "jumpbox_"
+}
+variable "jumpbox_instance_type" {
+  default = "t2.micro"
 }

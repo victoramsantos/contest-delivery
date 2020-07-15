@@ -2,6 +2,14 @@ data "aws_api_gateway_rest_api" "rest_api" {
   name = var.border_gateway_name
 }
 
+module "authorization" {
+  source = "../../authorizer"
+
+  authorizer_name = "${var.lambda_function_name}-authorizer"
+  border_gateway_name = var.border_gateway_name
+  lambda_name = var.lambda_authorization_name
+}
+
 resource "aws_api_gateway_resource" "rest_api_resource" {
   rest_api_id = data.aws_api_gateway_rest_api.rest_api.id
   parent_id = data.aws_api_gateway_rest_api.rest_api.root_resource_id
@@ -65,7 +73,8 @@ resource "aws_api_gateway_method" "app_api_gateway_method" {
   rest_api_id      = data.aws_api_gateway_rest_api.rest_api.id
   resource_id      = aws_api_gateway_resource.rest_api_resource.id
   http_method      = var.http_method
-  authorization    = "NONE"
+  authorization = "CUSTOM"
+  authorizer_id = module.authorization.authorizer_id
   api_key_required = false
 }
 

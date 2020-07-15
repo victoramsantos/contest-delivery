@@ -7,20 +7,11 @@
 // Note that token values are case-sensitive.
 
 exports.handler =  function(event, context, callback) {
-    console.log(event)
     var token = event.authorizationToken;
-    switch (token) {
-        case 'allow':
-            callback(null, generatePolicy('user', 'Allow', event.methodArn));
-            break;
-        case 'deny':
-            callback(null, generatePolicy('user', 'Deny', event.methodArn));
-            break;
-        case 'unauthorized':
-            callback("Unauthorized");   // Return a 401 Unauthorized response
-            break;
-        default:
-            callback("Error: Invalid token"); // Return a 500 Invalid token response
+    if (token == 'allow'){
+        callback(null, generatePolicy('user', 'Allow', event.methodArn));
+    }else{
+        callback(null, generatePolicy('user', 'Deny', event.methodArn));
     }
 };
 

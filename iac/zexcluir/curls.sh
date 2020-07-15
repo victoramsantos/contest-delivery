@@ -5,10 +5,10 @@
 #        https://o95f424bwl.execute-api.us-east-1.amazonaws.com/developer/calculateOrder
 
 # updateProduct
-curl  --header "Content-Type: application/json" \
-      --request POST \
-      --data '{"product":{"id": 1, "name": "Brahma zero", "price": 2.50}}' \
-        https://m5inkgyasf.execute-api.us-east-1.amazonaws.com/developer/updateOrder
+#curl  --header "Content-Type: application/json" \
+#      --request POST \
+#      --data '{"product":{"id": 1, "name": "Brahma zero", "price": 2.50}}' \
+#        https://m5inkgyasf.execute-api.us-east-1.amazonaws.com/developer/updateOrder
 
 # notifyCarrier
 #curl  --header "Content-Type: application/json" \
@@ -18,6 +18,7 @@ curl  --header "Content-Type: application/json" \
 
 
 # listProducts
-#curl --request POST \
-#      --header "Content-Type: application/json" \
-#        https://o95f424bwl.execute-api.us-east-1.amazonaws.com/developer/listProduct
+curl --request POST \
+      --header "Content-Type: application/json" \
+      --header "Authorization: deny" \
+        https://m5inkgyasf.execute-api.us-east-1.amazonaws.com/developer/listProduct

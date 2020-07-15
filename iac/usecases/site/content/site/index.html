@@ -35,7 +35,8 @@
             type: "POST",
             crossDomain: true,
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': 'allow'
             },
             success: function (jsonResponse) {
                 let response = JSON.parse(jsonResponse.body);
@@ -90,7 +91,8 @@
             type: "POST",
             crossDomain: true,
             headers: {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': 'allow'
             },
             data: payload,
             dataType: 'json',
@@ -123,7 +125,8 @@
                 type: "POST",
                 crossDomain: true,
                 headers: {
-                    'Content-Type':'application/json'
+                    'Content-Type':'application/json',
+                    'Authorization': 'allow'
                 },
                 data: payload,
                 dataType: 'json',

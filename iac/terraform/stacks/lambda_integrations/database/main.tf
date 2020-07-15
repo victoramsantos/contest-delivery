@@ -37,4 +37,5 @@ module "api_integration" {
   region = var.region
   resource = var.resource
   stage_name = var.stage_name
+  lambda_authorization_name = var.lambda_authorization_name
 }

@@ -16,5 +16,7 @@ variable "lambda_handler" {
 
 variable "environment" {
   type = map(string)
-  default = {}
+  default = {
+    empty = "empty"
+  }
 }

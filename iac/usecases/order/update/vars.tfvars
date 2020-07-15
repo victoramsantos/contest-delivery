@@ -15,3 +15,4 @@ subnet_ids = ["subnet-046e132a154013a23", "subnet-0904417ba74686a79"]
 secret_password_arn = "arn:aws:secretsmanager:us-east-1:965813040839:secret:order-db-password-6Q52bl"
 secret_username_arn = "arn:aws:secretsmanager:us-east-1:965813040839:secret:order-db-username-wKj0ki"
 database_name = "delivery"
+lambda_authorization_name = "authenticator"

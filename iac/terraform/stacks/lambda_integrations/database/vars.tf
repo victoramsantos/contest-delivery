@@ -62,3 +62,7 @@ variable "all_traffic_sg_name" {
 variable "subnet_ids" {
   type = list
 }
+
+variable "lambda_authorization_name" {
+  type = string
+}

@@ -41,3 +41,7 @@ variable "sms_subscription" {
 variable "lambda_handler" {
   type = string
 }
+
+variable "lambda_authorization_name" {
+  type = string
+}
