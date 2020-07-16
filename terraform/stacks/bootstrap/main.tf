@@ -89,5 +89,5 @@ module jumpbox_ag {
   source = "../../modules/ec2/autoscaling_group"
   launch_configuration_name = module.jumpbox_lc.lc_name
   name_prefix = var.jumpbox_prefix
-  vpc_zone_identifier = var.subnet_ids
+  vpc_zone_identifier = var.jumpbox_subnets
 }

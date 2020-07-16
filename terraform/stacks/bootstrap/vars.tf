@@ -59,3 +59,7 @@ variable "jumpbox_prefix" {
 variable "jumpbox_instance_type" {
   default = "t2.micro"
 }
+
+variable "jumpbox_subnets" {
+  default = ["subnet-046e132a154013a23"]
+}

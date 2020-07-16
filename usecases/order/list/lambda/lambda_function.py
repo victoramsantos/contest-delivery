@@ -59,5 +59,5 @@ client = session.client(
 
 hostname = os.getenv("DATABASE_ADDRESS")
 database = os.getenv("DATABASE_NAME")
-username = get_secret("order-db-username")
-password = get_secret("order-db-password")
+username = get_secret("contest-database-username")
+password = get_secret("contest-database-password")

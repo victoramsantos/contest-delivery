@@ -1,6 +1,6 @@
 #!/bin/bash
 
-STACK_PATH=../../../terraform/stacks/bootstrap
+STACK_PATH=../terraform/stacks/bootstrap
 
 rm lambda.zip
 
