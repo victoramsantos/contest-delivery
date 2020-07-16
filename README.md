@@ -1,11 +1,11 @@
-# A Servless Solution Architect
-The contest purpose was to create a servless solutions architect in a delivery domain.
+# A Serverless Solution Architect
+The contest purpose was to create a serverless solutions architect in a delivery domain.
 As a Solutions Architect I created an environment with three main principles, high availability, secure and scalable, which we can see in the follow:
 
 ![solution](./resources/solution.png)
 
 ## Solution Overview
-As solution we designed an acrchitecture where the web users' could list the available products, select some of them, and was able to see the final bill. 
+As solution we designed an architecture where the web users' could list the available products, select some of them, and was able to see the final bill. 
 For the companies, we created an API which they could update their products data.
 Finally, for the carriers we created a notification by SMS messages to be delivered in theirs mobile phones.
 
@@ -26,9 +26,9 @@ As well as the order lambdas, this one also retrieve its database connection fro
 ##### notifyCarrier
 Different from the other lambdas, this one do not have access to the database. Indeed this lambda connects to a Topic SNS which triggers a SMS subscription sending a SMS message for a specific carrier.
 
-It is important to know that, excepts the notifyCarrier, all other lambdas talks to the Secret Manager by a VPC Endpoint. It is necessary because for them to connect to database, the lambdas must have a network interface (in other words, be in a VPC).
+It is important to know that, except the notifyCarrier, all other lambdas talks to the Secret Manager by a VPC Endpoint. It is necessary because for them to connect to database, the lambdas must have a network interface (in other words, be in a VPC).
 
-In order to provide a good user experience we hosted our web site at S3 and used Cloudfront as our [CDN](https://en.wikipedia.org/wiki/Content_delivery_network). We created two stacks for this, one for the site and other for the site's assets.
+In order to give a good user experience we hosted our web site at S3 and used Cloudfront as our [CDN](https://en.wikipedia.org/wiki/Content_delivery_network). We created two stacks for this, one for the site and other for the site's assets.
 
 Finally for the developers access we simplified our solutions providing an EC2 jump box which has access by SSH connection using a specific key.
 
