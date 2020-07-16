@@ -46,3 +46,9 @@ Because of the complexity of ou solution we create a [setup script](setup.sh) wh
 - Edit the homepage [index.html](usecases/site/content/site/index.html) adding the assets Cloudfront distribution URL in lines 4 and 5.
 - Edit the homepage [index.html](usecases/site/content/site/index.html) changing the gateway variable at line 29 with the created APi Gateway URL (must have the _developer_ stage).
 - Finally run the [deploy_site.sh](deploy_site.sh)
+
+
+## Result
+As result we provide a web site like this:
+
+![result](./resources/result.png)
