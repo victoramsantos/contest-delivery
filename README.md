@@ -10,20 +10,20 @@ For the companies, we created an API which they could update their products data
 Finally, for the carriers we created a notification by SMS messages to be delivered in theirs mobile phones.
 
 ## Technical Solution
-This solution took into account that principles. Here we can see an AWS Api Gateway as border gateway for ingress traffic. This gateway has a authorization header which is evaluated by a lambda function (_authenticator()_). For the case of an example, this lambda only ensure that there exists a header _Authorization_ with the value _allow_.
+This solution took into account that principles. Here we can see an AWS Api Gateway as border gateway for ingress traffic. This gateway has an authorization header which is evaluated by a lambda function ([authenticator()](bootstrap/lambda/index.js)). For the case of an example, this lambda only ensure that there exists a header _Authorization_ with the value _allow_.
 
 Once that the request is authenticated the target lambda function is triggered. As our intention was to provide a backend for web applications, we provided the OPTION verb for all lambdas which is necessary because of [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). After that the browser (or user) can perform a POST request in any lambda. In the following this lambdas are explained in deep.
 
-##### listProduct
+##### [listProduct](./usecases/order/list)
 This lambda performs a request at our database and retrieve all products. In order to do it, the lambda has a Role which enables it to perform a retrieve of the username and password of our database hosted in the Secret Manager service which one.
 
-##### calculateOrder
+##### [calculateOrder](./usecases/order/calculate)
 As the _listProduct_ lambda, this lambda also retrieves its data from the database using those Secret Manager variables. This function exists to calculate the order price using the products and theirs amount in its payload.
 
-##### updateProduct
+##### [updateProduct](./usecases/order/update)
 As well as the order lambdas, this one also retrieve its database connection from Secret Manager. However this lambda has the intention to update a product's data.
 
-##### notifyCarrier
+##### [notifyCarrier](./usecases/carrier/notification)
 Different from the other lambdas, this one do not have access to the database. Indeed this lambda connects to a Topic SNS which triggers a SMS subscription sending a SMS message for a specific carrier.
 
 It is important to know that, except the notifyCarrier, all other lambdas talks to the Secret Manager by a VPC Endpoint. It is necessary because for them to connect to database, the lambdas must have a network interface (in other words, be in a VPC).

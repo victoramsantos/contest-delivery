@@ -1,11 +1,3 @@
-// A simple token-based authorizer example to demonstrate how to use an authorization token
-// to allow or deny a request. In this example, the caller named 'user' is allowed to invoke
-// a request if the client-supplied token value is 'allow'. The caller is not allowed to invoke
-// the request if the token value is 'deny'. If the token value is 'unauthorized' or an empty
-// string, the authorizer function returns an HTTP 401 status code. For any other token value,
-// the authorizer returns an HTTP 500 status code.
-// Note that token values are case-sensitive.
-
 exports.handler =  function(event, context, callback) {
     var token = event.authorizationToken;
     if (token == 'allow'){
