@@ -49,6 +49,6 @@ Because of the complexity of ou solution we create a [setup script](setup.sh) wh
 
 
 ## Result
-As result we provide a web site like this:
+As result we provide a web site like the image bellow which can be accessed (temporally) in [https://d28grd0qhvowxb.cloudfront.net/](https://d28grd0qhvowxb.cloudfront.net/):
 
 ![result](./resources/result.png)
