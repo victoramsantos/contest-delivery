@@ -40,6 +40,7 @@ For business lambdas we used Python 3.8, for the authenticator we used NodeJs 12
 ## Running
 Because of the complexity of ou solution we create a [setup script](setup.sh) which creates all the stack and services. However there are some manual tasks which must be performed, in the follow we describe these actions.
 - Run the [setup script](setup.sh)
+- It is necessary to update the references foreach _vars.tfvars_ in the [usecases](usecases) with the new services references. 
 - Connect to the created jumpbox EC2 and:
     - Install MySql Client using the [mysql_installation.sh](usecases/order/database/assets/mysql_installation.sh)
     - Connect to the database and run the [entrypoint.sql](usecases/order/database/assets/entrypoint.sql).
